@@ -1,0 +1,17 @@
+using System;
+
+namespace EJ3 // Note: actual namespace depends on the project name.
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+            funcion1();
+        }
+
+        static void funcion1() {
+            Console.WriteLine("Soy la funcion uno");
+        }
+    }
+}

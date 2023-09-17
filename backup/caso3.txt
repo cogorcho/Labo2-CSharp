@@ -1,0 +1,14 @@
+﻿using System;
+
+namespace EJ3 // Note: actual namespace depends on the project name.
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+            foreach(String s in args)
+                Console.WriteLine(s);
+        }
+    }
+}

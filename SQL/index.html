@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Clase 3</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container bg-info">
+            <h1 class="display-3 text-center">Clase 3 - Sqlite</h1>
+            <article class="border p-3">
+                <h4 class="display-6 text-left">Creación de la carpeta de trabajo</h4>
+                <p>En el Escritorio, crear la carpeta Clase3</p>
+            </article>
+            <hr>
+            <article class="border p-3">
+                <h4 class="display-6 text-left">Descarga de Sqlite</h4>
+                <p>
+                    Ir a <a href="https://sqlite.org/2023/sqlite-tools-win32-x86-3410200.zip">aquí</a> para descargar Sqlite
+                </p>
+                <p>
+                    Debería verse algo así:   <img src="img/sqlite1.png" alt="Descarga de sqlite">
+                </p>
+                <br>
+                <p>Doble click sobre la imagen, aparece algo así:</p>
+                <img src="img/sqlite2.png" alt="Descompresion de sqlite">
+                <br>
+                <p>Doble click sobre sqlite-tools-win32-x86-3410200, aparece algo así:</p>
+                <img src="img/sqlite3.png" alt="Achivos de sqlite">
+                <br>
+                <br>
+                <p>Boton derecho soble sqlite3.exe y seleccionar copy haciendo click. Se cerrará esta selección.</p>
+                <img src="img/sqlite4.png" alt="Copia de sqlite">
+                <br>
+                <br>
+                <p>Vamos a la carpeta Clase3, que creamos antes en el Escritorio y allí, right-click y seleccionamos Pegar (Paste en inglés></p>
+                <img src="img/sqlite5.png" alt="Pegar sqlite">
+                <br>
+                <br>
+                <p>Debería verse así:</p>
+                <img src="img/sqlite6.png" alt="Como queda sqlite">
+                <br>
+                <br>
+                <br>
+                <p>Si todo anduvo bien, tenemos sqlite3 listo para empezar a trabajar con sql y armar nuestra propia base de datos.</p>
+            </article>
+            <hr>
+            <article class="border p-3">
+                <h4 class="display-6 text-left">Descarga del archivo de provincias</h4>
+                <p>Desde <a href="https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.7/download/provincias.csv">aquí</a> descargar el archivo de provincias</p>
+                <p>Debería verse así: </p>
+                <img src="img/provincias1.png" alt="Decarga de provincias">
+                <br>
+                <br>
+                <p>Abrimos la carpeta donde se bajó el archivo de provincias.</p>
+                <p>Como muestra la imagen, seleccionamos "Show in Folder" (Mostrar en carpeta)</p>
+                <img src="img/provincias2.png" alt="Ubicacion del archivo de provincias">
+                <br>
+                <br>
+                <p>En la carpeta de descargas vemos el archivo <em>Provincias.csv</em>. Como muestra la imagen, click-derecho, copiar.</p>
+                <img src="img/provincias3.png" alt="Copia del archivo de provincias">
+                <br><br>
+                <p>Vamos a la carpeta Clase3 y allí lo pegamos (click-derecho, pegar). Debería verse así.</p>
+                <img src="img/provincias4.png" alt="Pegar el archivo de provincias">
+                <br>
+                <br>
+                <p>Si todo anduvo bien, estamos listos para crear nuestra primera base de datos con Sqlite3. Pero antes, tenemos q "limpiar" 
+                    el archivo de provincias. Tiene muchas comillas dobles y hay q sacarlas. En la carpeta Clase3 del Escritorio, 
+                    click-derecho sobre el archivo <em>provincias.csv</em>, seleccionamos <em>Abrir con</em> y elegimos el <em>Bloc de notas o Notepad</em>.
+                </p>
+                <img src="img/provincias5.png" alt="Sacar comillas del archivo de provincias 1">
+                <br><br>
+                <p>Una vez abierto el block de notas, vemos algo asi: </p>
+                <img src="img/provincias6.png" alt="Sacar comillas del archivo de provincias 2">
+                <br><br>
+                <p>Como muestra la imagen, seleccionamos <em>Reemplazar (Replace)</em></p>
+                <img src="img/provincias7.png" alt="Sacar comillas del archivo de provincias 3">
+                <br><br>
+                <p>Como muestra la siguente imagem, ya estamos listos para reemplazar todas las comillas por nada: </p>
+                <img src="img/provincias8.png" alt="Sacar comillas del archivo de provincias 4">
+                <br><br>
+                <p>Seleccionamos <em>Reemplazar todo (Replace all)</em> y vemos que desaparecen las comillas del archivo. 
+                    Es justo lo que queremos. Cerramos el cuadro de selección y vamos al menú del block de notasy guardamos el
+                archivo.</p>
+                <img src="img/provincias9.png" alt="Sacar comillas del archivo de provincias 5">
+                <br><br>
+                <p>Ahora sí, estamos listos para cargar este archivo a la base de datos con sqlite3</p>
+            </article>
+            <hr>
+            <article class="border p-3">
+                <h4 class="display-6 text-left">Carga de la base de datos</h4>
+                <p>Abrir la consola de Windows (cmd) e ir al directorio de la Clase 3. El comando DIR debería mostrarnos lo siguente:</p>
+                <img src="img/sql1.png" alt="Acceso a SQL">
+                <br><br>
+                <p>Recordar que para limpiar la consola tenemos el comando <em>CLS</em> que sería "clear screen"</p>
+                <br><br>
+                <p>En la imagen se muestra la secuencia de comandos utilizados para crear una tabla <em>Provincias</em>
+                en la base de datos <em>datos.db</em> y finalmente mostrar cuantos registros se cargaron.</p>
+                <img src="img/sql2.png" alt="Acceso a SQL">
+                <br><br>
+                <p>Estando conectados a la base de datos, es decir, cuando el prompt <em>sqlite></em> está activo,
+                el comando <em>.help</em> muestra la funcionalidad del sqlite3.exe. No se trata de comandos sql, 
+                sino de opciones para la salida, la entrada, etc. Todos estos comandos comienzan con un punto. Lo vimos antes con 
+                <em>.mode cvs</em> e <em>.import...</em></p>
+                <p><em>.quit</em> nos sirve para cerrar la sesión con la base de datos.</p>
+                <p>Cómo ver la estructura de la tabla creada? El comando es <em>.schema</em>. Podemos agregar el nombre de la 
+                tabla que queremos ver: <em>.schema Provincias</em>. Si no ponemos la tabla, nos muestra todas las tablas 
+                que se hayan creado hasta el momento.</p>
+                <img src="img/sql3.png" alt=".schema Provincias">
+                <br><br>
+                <p>Primer comando sql. Mostrar todas las filas y columnas de la tabla Provincias:</p>
+                <img src="img/sql4.png" alt=".schema Provincias">
+                <br>
+                <br>
+                <p>A continuación, varios comandos sql para practicar.</p>
+                <img src="img/sql5.png" alt="Practica sql 1">
+                <br><br>
+                <img src="img/sql6.png" alt="Practica sql 1">
+                <p>Variantes de formato de salida con el comando <em>.mode</em> (Probar <em>.help mode</em> para ver otras opciones)</p>
+                <img src="img/sql7.png" alt="Practica sql 2">
+                <p>Cuenta registros agrupados por una columna.</p>
+                
+                
+
+            </article>
+
+        </div>
+       
+        <script src="" async defer></script>
+    </body>
+</html>
