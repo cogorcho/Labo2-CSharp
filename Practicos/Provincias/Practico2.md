@@ -17,10 +17,10 @@ Trabajo en clase
         
         namespace Provincias {
             class Program {
-                public static void Main(string\[\] args) {
+                public static void Main(string[] args) {
                     string escritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     string archivo = Path.Combine(escritorio,"provincias.csv");
-                    string\[\] filas = {};
+                    string[] filas = {};
                     List provincias = new List();
         
                     try {
@@ -51,11 +51,8 @@ Trabajo en clase
                             File.Delete(archivox);
                         }
                         StreamWriter sw = new StreamWriter(archivox);
-                        StringBuilder sb = new StringBuilder();
-                        sb.Append("");
                         foreach(Provincia p in provincias)
                             sb.Append(p.xml());
-                        sb.Append("");
                         sw.Write(sb.ToString());
                         sw.Close();
                     } catch (IOException ioe) {
@@ -71,7 +68,7 @@ Trabajo en clase
                         }
                         StreamWriter sw = new StreamWriter(archivoj);
                         StringBuilder sb = new StringBuilder();
-                        sb.Append("\[");
+                        sb.Append("[");
                         int contador = 0;
                         foreach(Provincia p in provincias) {
                             if (contador == 0) {
@@ -81,7 +78,7 @@ Trabajo en clase
                             }
                             sb.Append($",{p.json()}");
                         }
-                        sb.Append("\]");
+                        sb.Append("]");
                         sw.Write(sb.ToString());
                         sw.Close();
                     } catch (IOException ioe) {
@@ -105,23 +102,23 @@ Trabajo en clase
                 float longitud;
                 string fuente;
                 int id;
-                string iso\_id;
-                string iso\_nombre;
+                string iso_id;
+                string iso_nombre;
                 string nombre;
-                string nombre\_completo;
+                string nombre_completo;
     
                 public Provincia(string data) {
                     try {
-                        string\[\] datos = data.Replace(@"""","").Split(',');
-                        this.categoria = datos\[0\].Trim();
-                        this.latitud = float.Parse(datos\[1\].Trim());
-                        this.longitud = float.Parse(datos\[2\].Trim());
-                        this.fuente = datos\[3\].Trim();
-                        this.id = int.Parse(datos\[4\].Trim());
-                        this.iso\_id = datos\[5\].Trim();
-                        this.iso\_nombre = datos\[6\].Trim();
-                        this.nombre = datos\[7\].Trim();
-                        this.nombre\_completo = datos\[8\].Trim();
+                        string[] datos = data.Replace(@"""","").Split(',');
+                        this.categoria = datos[0].Trim();
+                        this.latitud = float.Parse(datos[1].Trim());
+                        this.longitud = float.Parse(datos[2].Trim());
+                        this.fuente = datos[3].Trim();
+                        this.id = int.Parse(datos[4].Trim());
+                        this.iso_id = datos[5].Trim();
+                        this.iso_nombre = datos[6].Trim();
+                        this.nombre = datos[7].Trim();
+                        this.nombre_completo = datos[8].Trim();
                 }
                 catch (Exception e) {
                         Console.WriteLine("Error procesando linea dela archivo");
@@ -133,7 +130,7 @@ Trabajo en clase
     
                 public override string ToString()
                 {
-                    return this.nombre\_completo;
+                    return this.nombre_completo;
                 }
     
                 public string xml() {
@@ -143,10 +140,10 @@ Trabajo en clase
                     sb.Append($"{this.latitud}");
                     sb.Append($"{this.longitud}");
                     sb.Append($"{this.id}");
-                    sb.Append($"{this.iso\_id}");
-                    sb.Append($"{this.iso\_nombre}");
+                    sb.Append($"{this.iso_id}");
+                    sb.Append($"{this.iso_nombre}");
                     sb.Append($"{this.nombre}");
-                    sb.Append($"{this.nombre\_completo}");
+                    sb.Append($"{this.nombre_completo}");
                     sb.Append("");
                     return sb.ToString();
                 }
@@ -154,14 +151,14 @@ Trabajo en clase
                 public string json() {
                     StringBuilder sb = new StringBuilder();
                     sb.Append("{");
-                    sb.Append($"\\t\\"categoria\\": \\"{this.categoria}\\",");
-                    sb.Append($"\\t\\"latitud\\": {this.latitud},");
-                    sb.Append($"\\t\\"longitud\\": {this.longitud},");
-                    sb.Append($"\\t\\"id\\": {this.id},");
-                    sb.Append($"\\t\\"iso\_id\\": \\"{this.iso\_id}\\",");
-                    sb.Append($"\\t\\"iso\_nombre\\": \\"{this.iso\_nombre}\\",");
-                    sb.Append($"\\t\\"nombre\\": \\"{this.nombre}\\",");
-                    sb.Append($"\\t\\"nombre\_completo\\": \\"{this.nombre\_completo}\\"");
+                    sb.Append($"t"categoria": "{this.categoria}",");
+                    sb.Append($"t"latitud": {this.latitud},");
+                    sb.Append($"t"longitud": {this.longitud},");
+                    sb.Append($"t"id": {this.id},");
+                    sb.Append($"t"iso_id": "{this.iso_id}",");
+                    sb.Append($"t"iso_nombre": "{this.iso_nombre}",");
+                    sb.Append($"t"nombre": "{this.nombre}",");
+                    sb.Append($"t"nombre_completo": "{this.nombre_completo}"");
                     sb.Append("}");
                     return sb.ToString();
                 }
