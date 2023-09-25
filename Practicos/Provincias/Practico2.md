@@ -168,7 +168,8 @@ Trabajo en clase
     
 7.  Despues de ejecutar la aplicacion, en el escritorio, buscar los archivos:
     *   Provincias.html
-    *   Provincias.jsony abrirlos con el block de notas (Notepad)
+    *   Provincias.json 
+y abrirlos con el block de notas (Notepad)
 8.  [Aqui,](https://jsonlint.com/) pegamos el texto del archivo _Provincias.json_ y validamos que este todo bien
 9.  Al archivo _Provincias.xml_ lo podemos abrir con el Chrome
 
