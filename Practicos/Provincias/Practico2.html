@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provincias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    <h1>Trabajo en clase</h1>
+    <h4> <a href="https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.7/download/provincias.csv">
+        Archivo de Provincias (csv)</a></h4>
+    <ol class="lead">
+        <li>Bajar el archivo de provincias del link anterior</li>
+        <li>En la carpeta de descargas deberia quedar el archivo <em>provincias.csv</em></li>
+        <li>Mover el archivo recibido al escritorio</li>
+        <li>Crear con Visual Studio un nuevo proyecto de consola y llamarlo <em>Provincias</em></li>
+        <li><em>Program.cs</em>
+        <pre>
+    using System.Diagnostics.Contracts;
+    using System.IO;
+    using System.Text;
+    
+    namespace Provincias {
+        class Program {
+            public static void Main(string[] args) {
+                string escritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string archivo = Path.Combine(escritorio,"provincias.csv");
+                string[] filas = {};
+                List<Provincia> provincias = new List<Provincia>();
+    
+                try {
+                    filas = File.ReadAllLines(archivo);
+                } catch (IOException ioe) {
+                    Console.WriteLine($"Error abriendo archivo {archivo}");
+                    Console.WriteLine(ioe.Message);
+                    Environment.Exit(1);
+                }
+    
+                int contador = 0;
+                foreach(string s in filas) {
+                    if (contador == 0) {
+                        contador = 1;
+                        continue;
+                    }
+                    provincias.Add(new Provincia(s));
+                }
+    
+                generarXml(escritorio, provincias);
+                generarJson(escritorio, provincias);
+                Environment.Exit(0);
+            }
+            static void generarXml(string escritorio, List<Provincia> provincias) {
+                string archivox = Path.Combine(escritorio, "Provincias.xml");
+                try {
+                    if (File.Exists(archivox)) {
+                        File.Delete(archivox);
+                    }
+                    StreamWriter sw = new StreamWriter(archivox);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("<provincias>");
+                    foreach(Provincia p in provincias)
+                        sb.Append(p.xml());
+                    sb.Append("</provincias>");
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                } catch (IOException ioe) {
+                    Console.WriteLine($"Error procesando archivo {archivox}");
+                    Console.WriteLine(ioe.Message);
+                }
+            }    
+            static void generarJson(string escritorio, List<Provincia> provincias) {
+                string archivoj = Path.Combine(escritorio, "Provincias.json");
+                try {
+                    if (File.Exists(archivoj)) {
+                        File.Delete(archivoj);
+                    }
+                    StreamWriter sw = new StreamWriter(archivoj);
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("[");
+                    int contador = 0;
+                    foreach(Provincia p in provincias) {
+                        if (contador == 0) {
+                            contador = 1;
+                            sb.Append(p.json());
+                            continue;
+                        }
+                        sb.Append($",{p.json()}");
+                    }
+                    sb.Append("]");
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                } catch (IOException ioe) {
+                    Console.WriteLine($"Error procesando archivo {archivoj}");
+                    Console.WriteLine(ioe.Message);
+                }
+            }    
+        }
+    }            
+        </pre>
+        </li>
+        <li><em>Provincia.cs</em>
+        <pre>
+    using System.Text;
+
+    namespace Provincias {
+
+        public class Provincia {
+            string categoria;
+            float latitud;
+            float longitud;
+            string fuente;
+            int id;
+            string iso_id;
+            string iso_nombre;
+            string nombre;
+            string nombre_completo;
+
+            public Provincia(string data) {
+                try {
+                    string[] datos = data.Replace(@"""","").Split(',');
+                    this.categoria = datos[0].Trim();
+                    this.latitud = float.Parse(datos[1].Trim());
+                    this.longitud = float.Parse(datos[2].Trim());
+                    this.fuente = datos[3].Trim();
+                    this.id = int.Parse(datos[4].Trim());
+                    this.iso_id = datos[5].Trim();
+                    this.iso_nombre = datos[6].Trim();
+                    this.nombre = datos[7].Trim();
+                    this.nombre_completo = datos[8].Trim();
+            }
+            catch (Exception e) {
+                    Console.WriteLine("Error procesando linea dela archivo");
+                    Console.WriteLine(data);
+                    Console.WriteLine(e.Message);
+                    return;
+            }
+            }
+
+            public override string ToString()
+            {
+                return this.nombre_completo;
+            }
+
+            public string xml() {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<provincia>");
+                sb.Append($"<categoria>{this.categoria}</categoria>");
+                sb.Append($"<latitud>{this.latitud}</latitud>");
+                sb.Append($"<longitud>{this.longitud}</longitud>");
+                sb.Append($"<id>{this.id}</id>");
+                sb.Append($"<iso_id>{this.iso_id}</iso_id>");
+                sb.Append($"<iso_nombre>{this.iso_nombre}</iso_nombre>");
+                sb.Append($"<nombre>{this.nombre}</nombre>");
+                sb.Append($"<nombre_completo>{this.nombre_completo}</nombre_completo>");
+                sb.Append("</provincia>");
+                return sb.ToString();
+            }
+            
+            public string json() {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{");
+                sb.Append($"\t\"categoria\": \"{this.categoria}\",");
+                sb.Append($"\t\"latitud\": {this.latitud},");
+                sb.Append($"\t\"longitud\": {this.longitud},");
+                sb.Append($"\t\"id\": {this.id},");
+                sb.Append($"\t\"iso_id\": \"{this.iso_id}\",");
+                sb.Append($"\t\"iso_nombre\": \"{this.iso_nombre}\",");
+                sb.Append($"\t\"nombre\": \"{this.nombre}\",");
+                sb.Append($"\t\"nombre_completo\": \"{this.nombre_completo}\"");
+                sb.Append("}");
+                return sb.ToString();
+            }
+        }
+    }
+        </pre>
+        </li>
+        <li>Despues de ejecutar la aplicacion, en el escritorio, 
+            buscar los archivos:
+            <ul>
+                <li>Provincias.html</li>
+                <li>Provincias.json</li>
+            </ul>
+            y abrirlos con el block de notas (Notepad)
+        </li>
+        <li><a href="https://jsonlint.com/" target="_blank">Aqui, </a> 
+        pegamos el texto del archivo <em>Provincias.json</em>
+        y validamos que este todo bien
+        </li>
+        <li>Al archivo <em>Provincias.xml</em> lo podemos abrir con el Chrome</li>
+    </ol>
+    <hr>
+    <h1>Trabajo Practico</h1>
+    <p class="lead">
+        Desde <a href="https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.10/download/localidades.csv">
+            aqui, </a> bajar el archivo de <em>Localidades</em> y repetir lo hecho 
+            para las provincias.
+    </p>
+
+</div>
+</body>
+</html>
