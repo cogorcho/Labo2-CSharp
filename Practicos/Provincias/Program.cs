@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Provincias {
     class Program {
@@ -27,8 +28,14 @@ namespace Provincias {
                 provincias.Add(new Provincia(s));
             }
 
-            generarXml(escritorio, provincias);
-            generarJson(escritorio, provincias);
+            //generarXml(escritorio, provincias);
+            //generarJson(escritorio, provincias);
+
+            foreach (Provincia p in provincias) {
+
+                string output = JsonConvert.SerializeObject(p);
+                Console.WriteLine($"{p} {output}");
+            }
             Environment.Exit(0);
         }
         static void generarXml(string escritorio, List<Provincia> provincias) {

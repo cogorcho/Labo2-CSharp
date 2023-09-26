@@ -135,30 +135,30 @@ Trabajo en clase
     
                 public string xml() {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("");
-                    sb.Append($"{this.categoria}");
-                    sb.Append($"{this.latitud}");
-                    sb.Append($"{this.longitud}");
-                    sb.Append($"{this.id}");
-                    sb.Append($"{this.iso_id}");
-                    sb.Append($"{this.iso_nombre}");
-                    sb.Append($"{this.nombre}");
-                    sb.Append($"{this.nombre_completo}");
-                    sb.Append("");
+                    sb.Append("<provincia>");
+                    sb.Append($"<categoria>{this.categoria}</categoria>");
+                    sb.Append($"<latitud>{this.latitud}</latitud>");
+                    sb.Append($"<longitud>{this.longitud}</longitud>");
+                    sb.Append($"<id>{this.id}</id>");
+                    sb.Append($"<iso_id>{this.iso_id}</iso_id>");
+                    sb.Append($"<iso_nombre>{this.iso_nombre}</iso_nombre>");
+                    sb.Append($"<nombre>{this.nombre}</nombre>");
+                    sb.Append($"<nombre_completo>{this.nombre_completo}</nombre_completo>");
+                    sb.Append("</provincia>");
                     return sb.ToString();
                 }
-                
+
                 public string json() {
                     StringBuilder sb = new StringBuilder();
                     sb.Append("{");
-                    sb.Append($"t"categoria": "{this.categoria}",");
-                    sb.Append($"t"latitud": {this.latitud},");
-                    sb.Append($"t"longitud": {this.longitud},");
-                    sb.Append($"t"id": {this.id},");
-                    sb.Append($"t"iso_id": "{this.iso_id}",");
-                    sb.Append($"t"iso_nombre": "{this.iso_nombre}",");
-                    sb.Append($"t"nombre": "{this.nombre}",");
-                    sb.Append($"t"nombre_completo": "{this.nombre_completo}"");
+                    sb.Append($"\t"categoria": "{this.categoria}",");
+                    sb.Append($"\t"latitud": {this.latitud},");
+                    sb.Append($"\t"longitud": {this.longitud},");
+                    sb.Append($"\t"id": {this.id},");
+                    sb.Append($"\t"iso_id": "{this.iso_id}",");
+                    sb.Append($"\t"iso_nombre": "{this.iso_nombre}",");
+                    sb.Append($"\t"nombre": "{this.nombre}",");
+                    sb.Append($"\t"nombre_completo": "{this.nombre_completo}"");
                     sb.Append("}");
                     return sb.ToString();
                 }
