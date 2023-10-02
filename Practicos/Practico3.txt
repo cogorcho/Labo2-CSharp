@@ -1,0 +1,79 @@
+PRACTICO 3:
+
+Tomando como base el proyecto GeoAr de github,
+contestar las siguientes preguntas en Program.cs.
+(Directamente en este archivo)
+
+Como paso previo, hay que tener la aplicacion funcionando.
+
+Datos a Completar:
+	Nombre: 
+	Fecha:
+
+Enviar por mail este archivo a jarce@frsn.utn.edu.ar
+antes del 16/10/2023
+
+namespace GeoAr {
+    class Program {
+        // 1. Que efecto tiene la declaracion static aqui?
+        // Respuesta:
+        // 2. Que tipo de estructura proveed List<>
+        // Respuesta: 
+        static List<Provincia> provincias = Provincia.cargar_datos();
+        static List<Departamento> departamentos = Departamento.cargar_datos();
+        static List<Localidad> localidades = Localidad.cargar_datos();
+        
+        // 3. Que es Main?
+        // Respuesta:
+        public static void Main(string[] args) {
+            descargar_archivos();
+            menu();
+            foreach(Provincia p in provincias)
+                Console.WriteLine(p.json());
+        }
+                
+        private static void descargar_archivos() {
+            // 4. Que valor tiene la variable Config.url_provincias?
+            // Respuesta:
+            // 5. Porque puedo llamar a la funcion descargar de la clase Archivo 
+            // sin haber creado un objeto un objeto de la misma?
+            // Respuesta:
+            Archivo.descargar(Config.url_provincias);
+                        
+            // 6. Que valor tiene la variable Config.url_departamentos?
+            // Respuesta:
+            Archivo.descargar(Config.url_departamentos);
+                        
+            // 7. Que valor tiene la variable Config.url_localidades?
+            // Respuesta:
+            Archivo.descargar(Config.url_localidades);
+        }
+
+        private static void menu() {
+            while(true) {
+                Menu menu = new Menu(provincias);
+                int pciaid = menu.seleccionar();
+                if (pciaid == 0) {
+                    Console.Clear();
+                    break;
+                }
+                Console.Clear();
+                // 8. Que hace, en este caso, la funcion Find de la List<Provincia>?
+                // Respuesta:
+                Console.WriteLine(provincias.Find(x => x.Id == pciaid));
+                                
+                List<Departamento> deptosxpcia = departamentos.FindAll(x => x.Provincia_id == pciaid);
+                foreach(Departamento d in deptosxpcia.OrderBy(x => x.Nombre)) {
+                    Console.WriteLine($"    {d}");
+                    // 9. Cual es la diferencia entre Find y FindAll?
+                    // Respuesta: 
+                    foreach(Localidad l in localidades.FindAll(x => x.Departamento_id == d.Id).OrderBy(x => x.Nombre))
+                        Console.WriteLine($"        {l}");
+                }
+                Console.Write("\n\n    Pulse una tecla para continuar");
+                Console.ReadKey();
+            }
+        }
+    }
+}
+
