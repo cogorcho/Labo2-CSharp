@@ -2,7 +2,8 @@ PRACTICO 3:
 
 Tomando como base el proyecto GeoAr de github,
 contestar las siguientes preguntas en Program.cs.
-(Directamente en este archivo)
+(Directamente en este archivo para lo cual, antes hay q bajarlo
+y editarlo con el block de notas).
 
 Como paso previo, hay que tener la aplicacion funcionando.
 
