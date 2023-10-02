@@ -2,16 +2,21 @@
 
 namespace GeoAr {
     class Program {
-        static List<Provincia> provincias = Provincia.cargar_datos();
-        static List<Departamento> departamentos = Departamento.cargar_datos();
-        static List<Localidad> localidades = Localidad.cargar_datos();
+
+        static List<Provincia> provincias; 
+        static List<Departamento> departamentos; 
+        static List<Localidad> localidades; 
         
         public static void Main(string[] args) {
             descargar_archivos();
+            provincias = Provincia.cargar_datos();
+            departamentos = Departamento.cargar_datos();
+            localidades = Localidad.cargar_datos();
             menu();
             foreach(Provincia p in provincias)
                 Console.WriteLine(p.json());
         }
+
         private static void descargar_archivos() {
             Archivo.descargar(Config.url_provincias);
             Archivo.descargar(Config.url_departamentos);
