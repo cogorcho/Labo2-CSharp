@@ -77,7 +77,7 @@ namespace GeoAr {
             return JsonSerializer.Serialize(this);
         }
         public static List<Localidad> cargar_datos() {
-            string archivo =  Path.Combine(Config.destino_datos, Config.url_localidades.Split('/').Last());
+            string archivo =  Path.Combine(Config.dir_datos, Config.url_localidades.Split('/').Last());
             List<Localidad> localidades = new List<Localidad>();
             foreach(string s in Archivo.cargar(archivo).Skip(1)) {
                 localidades.Add(new Localidad(s));
